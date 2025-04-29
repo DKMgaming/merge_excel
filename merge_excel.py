@@ -32,14 +32,6 @@ if uploaded_files:
 
     st.success(f"Đã ghép {len(uploaded_files)} file lại với nhau!")
     st.dataframe(merged_df)
-
-    # Tải file về
-   # @st.cache_data
-    # def convert_df(df):
-    #    return df.to_excel(index=False, engine='xlsxwriter')
-
-   # merged_file = convert_df(merged_df)
-
     def convert_df(df):
         output = io.BytesIO()
         with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
