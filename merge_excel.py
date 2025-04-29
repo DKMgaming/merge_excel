@@ -41,12 +41,12 @@ if uploaded_files:
    # merged_file = convert_df(merged_df)
 
     def convert_df(df):
-    output = io.BytesIO()
-    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-        df.to_excel(writer, index=False, sheet_name='Sheet1')
-    processed_data = output.getvalue()
-    return processed_data
-    
+        output = io.BytesIO()
+        with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+             df.to_excel(writer, index=False, sheet_name='Sheet1')
+        processed_data = output.getvalue()
+        return processed_data
+    merged_file = convert_df(merged_df)
     st.download_button(
         label="📥 Tải file Excel đã ghép",
         data=merged_file,
