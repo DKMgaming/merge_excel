@@ -34,12 +34,19 @@ if uploaded_files:
     st.dataframe(merged_df)
 
     # Tải file về
-    @st.cache_data
+   # @st.cache_data
+    # def convert_df(df):
+    #    return df.to_excel(index=False, engine='xlsxwriter')
+
+   # merged_file = convert_df(merged_df)
+
     def convert_df(df):
-        return df.to_excel(index=False, engine='xlsxwriter')
-
-    merged_file = convert_df(merged_df)
-
+    output = io.BytesIO()
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+        df.to_excel(writer, index=False, sheet_name='Sheet1')
+    processed_data = output.getvalue()
+    return processed_data
+    
     st.download_button(
         label="📥 Tải file Excel đã ghép",
         data=merged_file,
